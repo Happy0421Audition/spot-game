@@ -79,18 +79,38 @@
     canvas.addEventListener('touchend', finishedPosition);
     canvas.addEventListener('touchmove', draw, {passive: false});
 
-    function submitGame() {
+function submitGame() {
         const name = document.getElementById('username').value;
         const phone = document.getElementById('phone').value;
+        const canvas = document.getElementById('gameCanvas');
+        
         if(!name || !phone) { alert("請完整填寫資料唷！"); return; }
         
-        // 這是帶有圈選痕跡的圖片數據 (Base64)
+        // 取得圖片數據 (Base64 格式)
         const finalImage = canvas.toDataURL("image/png");
         
-        console.log("提交人:", name, phone);
-        alert("提交成功！\n感謝 " + name + " 參與活動。");
-        // 後續可在此串接 API 傳送資料
+        // 這是你剛剛產生的 GAS 網址
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwUFAeQJo8i8eBr8Jgq1d-UypxOZhqX9NWcXKL1iuQZINWpGB-6Tb1KJLRCuvZEUKd3/exec';
+
+        const data = {
+            name: name,
+            phone: phone,
+            image: finalImage
+        };
+
+        // 發送資料到 Google Sheet
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors', // 避免跨網域問題
+            cache: 'no-cache',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(() => {
+            alert("提交成功！\n感謝 " + name + " 參與活動，資料已存入試算表。");
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            alert("提交失敗，請檢查網路連線。");
+        });
     }
-</script>
-</body>
-</html>
