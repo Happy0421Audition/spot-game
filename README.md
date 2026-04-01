@@ -20,7 +20,7 @@
     <h2>🎯 找碴挑戰賽</h2>
     <p>請先填寫基本資料開始遊戲</p>
     <input type="text" id="username" placeholder="您的勁舞團(快樂玩)帳號" required>
-    <input type="tel" id="phone" placeholder="您的進舞團暱稱" required>
+    <input type="tel" id="phone" placeholder="您的勁舞團暱稱" required>
     
     <div id="canvas-container">
         <canvas id="gameCanvas"></canvas>
