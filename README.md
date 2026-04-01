@@ -15,7 +15,6 @@
         button:hover { background: #e84118; transform: scale(1.05); }
         p { color: #666; font-size: 14px; }
     </style>
-    </style>
 </head>
 <body>
 
